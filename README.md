@@ -4,6 +4,7 @@
 ## API using
 
 1) Perplexity API https://api.perplexity.ai/chat/completions
+2) open AI https://developers.openai.com/api/docs
 
 
 ## Setup Virtual Env and test API in Jupyter Notebook
@@ -19,11 +20,14 @@ python -m venv .venv
 .venv\Scripts\Activate.ps1 
 
 python.exe -m pip install --upgrade pip 
+
+pip install perplexityai
+pip install openai
 pip install requests
 
 ```
 
-
 And then use VS Notebook: Select Notebook Kernel to select the virtual environment to test with Jupyter Notebook
+
 And Visual Studio will ask you to install kernel libs in virtual env
 
