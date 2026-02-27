@@ -22,6 +22,8 @@ python -m venv .venv
 
 python.exe -m pip install --upgrade pip 
 
+pip install python-dotenv
+
 pip install perplexityai
 pip install openai
 pip install requests
