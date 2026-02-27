@@ -9,7 +9,8 @@
 
 ## Setup Virtual Env and test API in Jupyter Notebook
 
-NOTE: Make a virtual environment for python v3.14 t
+NOTE: Make a virtual environment for python ON LINUX V12.13 
+failed to do on V Env on windows for Linux v3.14 t
 
 
 In terminal
