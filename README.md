@@ -1,10 +1,28 @@
 # Creating test Jupyter Noteboos that calls LLM API for testing different LLMs
 
 
-## API using
+## AI using different APIs for different LLMs
 
-1) Perplexity API https://api.perplexity.ai/chat/completions
-2) open AI https://developers.openai.com/api/docs
+### Perplexity
+
+Has 4 APIs
+1) Agent API - fully compatible with OpenAI’s SDKs. 
+2) Search API
+3) Sonar API - provides web-grounded AI responses (options: sonar, sonar-pro, sonar-deep-research, sonar-reasoning-pro )
+4) Embaddings API
+
+Perplexity SDKs for Python and Typescript to access the Perplexity APIs with type safety and async support.
+
+You can use your existing OpenAI client libraries with the Agent API by simply changing the base URL 
+Agent API https://api.perplexity.ai/v1
+
+NOTE: https://docs.perplexity.ai/docs/resources/faq#to-what-extent-is-the-api-openai-compatible
+
+
+### open AI 
+Use the Responses API over the older Chat Completions API
+
+https://developers.openai.com/api/docs
 
 
 ## Setup Virtual Env and test API in Jupyter Notebook
