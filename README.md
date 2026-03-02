@@ -83,3 +83,7 @@ printenv
 echo $OPENAI_API_KEY
  ```
 
+## LangChain
+LangChain Core contains the base abstractions that power the LangChain ecosystem.
+Core components have the largest install base in the LLM ecosystem, and are used in production by many companies.
+https://reference.langchain.com/python/langchain-core
