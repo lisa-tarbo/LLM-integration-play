@@ -1,7 +1,7 @@
 # Jupyter Notebooks for testing different LLMs
 
 
-## Use different APIs for different LLMs
+## The APIs for the LLMs
 
 ### Perplexity
 
@@ -78,6 +78,8 @@ export OPENAI_API_KEY=""
 For Windows
 setx OPENAI_API_KEY ""
 
- echo $OPENAI_API_KEY
+
+printenv
+echo $OPENAI_API_KEY
  ```
 
