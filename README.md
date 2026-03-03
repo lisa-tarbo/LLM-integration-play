@@ -32,35 +32,27 @@ https://developers.openai.com/api/docs
 NOTE: Make a virtual environment for python ON LINUX V12.13 
 failed to do on V Env on windows for Linux v3.14 t
 
-In terminal prepare the virtual environment - Windows
+In terminal prepare the virtual environment
 ```console
 cd C:\LisaData\Code\Python\LLM integration play
 
 python -m venv .venv
 .venv\Scripts\Activate.ps1 
 
-```
-
-In terminal prepare the virtual environment - Linux
-```console
-cd C:\LisaData\Code\Python\LLM integration play
-
-python -m venv .venv
+#Note for Linux
 source .venv/bin/activate
-
 ```
 
 All python libs need to be installed in Virtual Environment
 
 ```console
-python.exe -m pip install --upgrade pip 
-
 pip install python-dotenv
 
 pip install perplexityai
 pip install openai
 pip install requests
-
+pip install langchain-core
+pip install -U langchain-openai
 ```
 
 And then use VS Notebook: Select Notebook Kernel to select the virtual environment to test with Jupyter Notebook
@@ -77,7 +69,6 @@ export OPENAI_API_KEY=""
 
 For Windows
 setx OPENAI_API_KEY ""
-
 
 printenv
 echo $OPENAI_API_KEY
