@@ -22,6 +22,8 @@ NOTE: For details on OpenAI compatibility, see https://docs.perplexity.ai/docs/r
 ### OpenAI APIs
 Use the Responses API over the older Chat Completions API as suggested here: https://developers.openai.com/api/docs
 
+### Google Gemini APIs
+https://ai.google.dev/gemini-api/docs/libraries
 
 ## Setup Virtual Env
 
@@ -43,12 +45,11 @@ All python libs need to be installed in Virtual Environment
 
 ```console
 pip install python-dotenv
-
+pip install requests
 pip install perplexityai
 pip install openai
-pip install requests
+pip install google-genai
 pip install langchain-core
-pip install -U langchain-openai
 ```
 
 ##  Setup Jupyter Notebook
