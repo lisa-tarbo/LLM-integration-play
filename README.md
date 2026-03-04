@@ -12,7 +12,7 @@ Has 4 APIs
 4) Embaddings API
 
 OpenAI SDK Compatibility
--Use OpenAI SDKs with the Sonar API by changing the base URL and API key
+-Use OpenAI SDKs with the Sonar API by changing the base URL to https://api.perplexity.ai/chat/completions
 - Perplexity’s Sonar API is fully compatible with OpenAI’s Chat Completions interface (MUST use this interface!!)
 OR
 -You can use your existing OpenAI client libraries with the Agent API by simply changing the base URL 
@@ -32,35 +32,27 @@ https://developers.openai.com/api/docs
 NOTE: Make a virtual environment for python ON LINUX V12.13 
 failed to do on V Env on windows for Linux v3.14 t
 
-In terminal prepare the virtual environment - Windows
+In terminal prepare the virtual environment
 ```console
 cd C:\LisaData\Code\Python\LLM integration play
 
 python -m venv .venv
 .venv\Scripts\Activate.ps1 
 
-```
-
-In terminal prepare the virtual environment - Linux
-```console
-cd C:\LisaData\Code\Python\LLM integration play
-
-python -m venv .venv
+#Note for Linux
 source .venv/bin/activate
-
 ```
 
 All python libs need to be installed in Virtual Environment
 
 ```console
-python.exe -m pip install --upgrade pip 
-
 pip install python-dotenv
 
 pip install perplexityai
 pip install openai
 pip install requests
-
+pip install langchain-core
+pip install -U langchain-openai
 ```
 
 And then use VS Notebook: Select Notebook Kernel to select the virtual environment to test with Jupyter Notebook
@@ -69,7 +61,7 @@ And Visual Studio will ask you to install kernel libs in virtual env
 
 ## Setup API keys for each LLM
 
-See actual values in OneNote
+in .env file
 
 ```console
 For Linux
@@ -78,8 +70,11 @@ export OPENAI_API_KEY=""
 For Windows
 setx OPENAI_API_KEY ""
 
-
 printenv
 echo $OPENAI_API_KEY
  ```
 
+## LangChain
+LangChain Core contains the base abstractions that power the LangChain ecosystem.
+Core components have the largest install base in the LLM ecosystem, and are used in production by many companies.
+https://reference.langchain.com/python/langchain-core
