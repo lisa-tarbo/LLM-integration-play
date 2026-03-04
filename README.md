@@ -12,7 +12,7 @@ Has 4 APIs
 4) Embaddings API
 
 OpenAI SDK Compatibility
--Use OpenAI SDKs with the Sonar API by changing the base URL and API key
+-Use OpenAI SDKs with the Sonar API by changing the base URL to https://api.perplexity.ai/chat/completions
 - Perplexity’s Sonar API is fully compatible with OpenAI’s Chat Completions interface (MUST use this interface!!)
 OR
 -You can use your existing OpenAI client libraries with the Agent API by simply changing the base URL 
@@ -61,7 +61,7 @@ And Visual Studio will ask you to install kernel libs in virtual env
 
 ## Setup API keys for each LLM
 
-See actual values in OneNote
+in .env file
 
 ```console
 For Linux
