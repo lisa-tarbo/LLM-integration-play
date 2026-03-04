@@ -6,31 +6,27 @@
 ### Perplexity
 
 Has 4 APIs
-1) Agent API - fully compatible with OpenAI’s SDKs. (POST Responses)
-2) Search API
-3) Sonar API - provides web-grounded AI responses (options: sonar, sonar-pro, sonar-deep-research, sonar-reasoning-pro )
-4) Embaddings API
+1) Agent API - fully compatible with OpenAI’s SDKs. (ie Responses API)
+2) Search API -
+3) Sonar API - provides retrieval-augmented generation (RAG) responses with real-time web search (model options: sonar, sonar-pro, sonar-deep-research, sonar-reasoning-pro )
+4) Embeddings API -
 
 OpenAI SDK Compatibility
--Use OpenAI SDKs with the Sonar API by changing the base URL to https://api.perplexity.ai/chat/completions
-- Perplexity’s Sonar API is fully compatible with OpenAI’s Chat Completions interface (MUST use this interface!!)
-OR
--You can use your existing OpenAI client libraries with the Agent API by simply changing the base URL 
-Agent API https://api.perplexity.ai/v1
+- Use OpenAI SDKs with the Sonar API by changing the base URL to https://api.perplexity.ai/chat/completions
+- Perplexity’s Sonar API is fully compatible with OpenAI’s Chat Completions interface but not the Agent API that uses Responseses API 
+( ie Agent API https://api.perplexity.ai/v1 )
 
-NOTE: https://docs.perplexity.ai/docs/resources/faq#to-what-extent-is-the-api-openai-compatible
+NOTE: For details on OpenAI compatibility, see https://docs.perplexity.ai/docs/resources/faq#to-what-extent-is-the-api-openai-compatible
 
 
-### open AI 
-Use the Responses API over the older Chat Completions API
-
-https://developers.openai.com/api/docs
+### OpenAI APIs
+Use the Responses API over the older Chat Completions API as suggested here: https://developers.openai.com/api/docs
 
 
-## Setup Virtual Env and test API in Jupyter Notebook
+## Setup Virtual Env
 
-NOTE: Make a virtual environment for python ON LINUX V12.13 
-failed to do on V Env on windows for Linux v3.14 t
+NOTE: Virtual environment setup tested on Python 3.13+ on Linux. 
+Using Windows for Python v3.14 failed to install some langchain libraries as they were not built for windows
 
 In terminal prepare the virtual environment
 ```console
@@ -55,26 +51,29 @@ pip install langchain-core
 pip install -U langchain-openai
 ```
 
+##  Setup Jupyter Notebook
 And then use VS Notebook: Select Notebook Kernel to select the virtual environment to test with Jupyter Notebook
-
 And Visual Studio will ask you to install kernel libs in virtual env
 
 ## Setup API keys for each LLM
 
-in .env file
+Suggest set them in a .env file
+
+Or set them as below
 
 ```console
-For Linux
+# For Linux
 export OPENAI_API_KEY=""
 
-For Windows
+# For Windows
 setx OPENAI_API_KEY ""
 
+# check environment variables 
 printenv
 echo $OPENAI_API_KEY
  ```
 
 ## LangChain
-LangChain Core contains the base abstractions that power the LangChain ecosystem.
+LangChain Core provides foundational abstractions and components for building LLM applications
 Core components have the largest install base in the LLM ecosystem, and are used in production by many companies.
 https://reference.langchain.com/python/langchain-core
