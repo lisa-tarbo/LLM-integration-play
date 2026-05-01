@@ -7,6 +7,7 @@ This repository contains four Jupyter notebooks used to test and compare LLM int
 - `Open AI.ipynb`: OpenAI Responses API and Chat Completions examples.
 - `Gemini.ipynb`: Google Gemini SDK and LangChain Google integration examples.
 - `Prerplexity.ipynb`: Perplexity Sonar, Search, and Agent API behavior experiments.
+- `Prerplexity-ocs-bug-repro.ipynb`: reproduce errors to track down for OCS bug
 - `LangChain.ipynb`: LangChain model wrappers, prompt templates, tool usage, and structured outputs.
 - `requirements.txt`: Python dependencies used across the notebooks.
 
