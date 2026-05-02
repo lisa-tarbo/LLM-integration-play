@@ -1,14 +1,14 @@
 # LLM Integration Playbook (Jupyter)
 
 This repository contains Jupyter notebooks used to test and compare LLM integrations across multiple providers and models.
-Additionally used to reproduce a [bug in Dimagi Open Chat Studio (OCS)](https://github.com/dimagi/open-chat-studio/issues/2962) with Perplexity.
+Additionaly used to reproduce a [bug in Dimagi Open Chat Studio (OCS)](https://github.com/dimagi/open-chat-studio/issues/2962) with Perplexity.
 
 ## Goals & Learning
 
 - Validate SDK setup and authentication for each LLM provider -> Python libraries available
 - Compare API styles (Responses API vs Chat Completions) -> Identified OCS bug due to Perplexity's partial OpenAI compatibility: Sonar models use chat completions style; Agent API uses the /v1 OpenAI-compatible base URL
 - Test provider-specific endpoint/model compatibility -> to understand [OCS LLM service abstraction layer](https://developers.openchatstudio.com/developer_guides/deleting_models/)
-- Explore LangChain abstractions for reusable, provider-agnostic workflows -> Insights into how its used in Open Chat Studio as the foundational LLM abstraction layer
+- Explore LangChain abstractions for reusable, provider-agnostic workflows -> Insights into how it's used in Open Chat Studio as the foundational LLM abstraction layer
 - Technical LLM terminology -> navigating LLM documentation
 - Use GitHub Copilot -> extended tests
 
