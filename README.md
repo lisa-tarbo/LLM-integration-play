@@ -1,7 +1,7 @@
 # LLM Integration Playbook (Jupyter)
 
 This repository contains Jupyter notebooks used to test and compare LLM integrations across multiple providers and models.
-Additionaly used to reproduce a [bug in Dimagi Open Chat Studio (OCS)](https://github.com/dimagi/open-chat-studio/issues/2962) with Perplexity.
+Additionally used to reproduce a [bug in Dimagi Open Chat Studio (OCS)](https://github.com/dimagi/open-chat-studio/issues/2962) with Perplexity.
 
 ## Goals & Learning
 
