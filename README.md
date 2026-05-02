@@ -67,6 +67,33 @@ Important:
 - Choose the Python kernel from `.venv`.
 - If prompted, install notebook dependencies for that kernel.
 
+### 5) Optional: enable pre-commit hooks for notebooks
+
+Install pre-commit and set up git hooks:
+
+```bash
+pip install pre-commit detect-secrets
+pre-commit install
+```
+
+Initialize a secret-scanning baseline file once:
+
+```bash
+detect-secrets scan > .secrets.baseline
+```
+
+Run all hooks across the repository:
+
+```bash
+pre-commit run --all-files
+```
+
+This repository includes hooks in `.pre-commit-config.yaml` for:
+- Notebook output stripping (`nbstripout`) to keep `.ipynb` diffs readable.
+- Notebook cell lint/format checks (`nbqa-ruff`, `nbqa-black`).
+- Secret detection (`detect-secrets`).
+- General file hygiene checks (whitespace, merge markers, JSON/YAML validity).
+
 ## Notebook Guide
 
 ### 1) Open AI.ipynb
