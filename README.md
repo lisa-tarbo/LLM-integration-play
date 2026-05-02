@@ -76,7 +76,7 @@ pip install pre-commit detect-secrets
 pre-commit install
 ```
 
-Initialize a secret-scanning baseline file once:
+Initialize a secret-scanning baseline file once when the tracked baseline actually needs to be refreshed:
 
 ```bash
 detect-secrets scan > .secrets.baseline
@@ -92,7 +92,7 @@ This repository includes hooks in `.pre-commit-config.yaml` for:
 - Notebook output stripping (`nbstripout`) to keep `.ipynb` diffs readable.
 - Notebook cell lint/format checks (`nbqa-ruff`, `nbqa-black`).
 - Secret detection (`detect-secrets`).
-- General file hygiene checks (whitespace, merge markers, JSON/YAML validity).
+- General file hygiene checks (whitespace, merge markers, JSON validity).
 
 ## Notebook Guide
 
