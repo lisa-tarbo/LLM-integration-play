@@ -1,32 +1,31 @@
 # LLM Integration Playbook (Jupyter)
 
-This repository contains four Jupyter notebooks used to test and compare LLM integrations across OpenAI, Google Gemini, Perplexity, and LangChain.
+This repository contains Jupyter notebooks used to test and compare LLM integrations across multiple providers and models.
+Additionaly used to reproduce a [bug in Dimagi Open Chat Studio (OCS)](https://github.com/dimagi/open-chat-studio/issues/2962) with Perplexity.
+
+## Goals & Learning
+
+- Validate SDK setup and authentication for each LLM provider -> Python libraries available
+- Compare API styles (Responses API vs Chat Completions) -> Identified OCS bug due to Perplexity's partial OpenAI compatibility: Sonar models use chat completions style; Agent API uses the /v1 OpenAI-compatible base URL
+- Test provider-specific endpoint/model compatibility -> to understand [OCS LLM service abstraction layer](https://developers.openchatstudio.com/developer_guides/deleting_models/)
+- Explore LangChain abstractions for reusable, provider-agnostic workflows -> Insights into how its used in Open Chat Studio as the foundational LLM abstraction layer
+- Technical LLM terminology -> navigating LLM documentation
+- Use GitHub Copilot -> extended tests
 
 ## Repository Contents
 
 - `Open AI.ipynb`: OpenAI Responses API and Chat Completions examples.
 - `Gemini.ipynb`: Google Gemini SDK and LangChain Google integration examples.
 - `Prerplexity.ipynb`: Perplexity Sonar, Search, and Agent API behavior experiments.
-- `Prerplexity-ocs-bug-repro.ipynb`: reproduce errors to track down for OCS bug
+- `Prerplexity-ocs-bug-repro.ipynb`: Reproduce errors to track down an OCS bug
 - `LangChain.ipynb`: LangChain model wrappers, prompt templates, tool usage, and structured outputs.
 - `requirements.txt`: Python dependencies used across the notebooks.
-
-## Goals
-
-- Validate SDK setup and authentication for each provider.
-- Compare API styles (Responses API vs Chat Completions).
-- Test provider-specific endpoint/model compatibility.
-- Explore LangChain abstractions for reusable, provider-agnostic workflows.
 
 ## Prerequisites
 
 - Python 3.13+ (tested on Linux).
 - VS Code with Jupyter extension.
 - API keys for providers you want to test.
-
-Notes:
-- Some packages may fail on certain Windows/Python combinations due to binary wheel availability.
-- Run all installs inside a virtual environment.
 
 ## Setup
 
@@ -78,9 +77,6 @@ What it covers:
 - Instruction style comparisons (`instructions` vs role-based input array).
 - Legacy Chat Completions example for reference.
 
-Required env vars:
-- `OPENAI_API_KEY`
-
 ### 2) Gemini.ipynb
 
 What it covers:
@@ -88,19 +84,13 @@ What it covers:
 - Content generation and thinking configuration.
 - LangChain integration via `ChatGoogleGenerativeAI`.
 
-Required env vars:
-- `GOOGLE_API_KEY`
-
 ### 3) Prerplexity.ipynb
 
 What it covers:
 - Sonar API calls using `requests` and `perplexityai` library.
 - Search API usage.
 - Agent API usage through OpenAI SDK-compatible base URL.
-- Intentional endpoint mismatch examples showing 404/400 behaviors.
 
-Required env vars:
-- `PERPLEXITY_API_KEY`
 
 ### 4) LangChain.ipynb
 
@@ -111,10 +101,8 @@ What it covers:
 - `ChatPerplexity` usage.
 - Simple chain composition and structured output extraction with Pydantic.
 
-Required env vars:
-- `OPENAI_API_KEY`
-- `GOOGLE_API_KEY` (for Google integration cells)
-- `PPLX_API_KEY` (for Perplexity integration cells)
+### 5) Prerplexity-ocs-bug-repro.ipynb
+- Intentional endpoint mismatch examples showing 404/400 behaviors.
 
 ## Perplexity API Notes
 
@@ -135,7 +123,7 @@ Reference:
 - `ValueError ... API_KEY environment variable not set`:
 	- Ensure `.env` exists and keys are populated.
 	- Confirm the notebook kernel uses the same `.venv` where `python-dotenv` is installed.
-- `401 Unauthorized` (Perplexity):
+- `401 Unauthorized` :
 	- Verify key validity and account credits.
 - `404 Not Found` (Perplexity):
 	- Check endpoint matches the API style (Sonar chat completions vs Agent API).
