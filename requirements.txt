@@ -1,0 +1,12 @@
+python-dotenv
+requests
+openai
+google-genai
+perplexityai
+langchain
+langchain-core
+langchain-openai
+langchain-google-genai
+langchain-perplexity
+pydantic
+ipykernel
