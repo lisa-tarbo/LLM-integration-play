@@ -1,7 +1,7 @@
 # LLM Integration Playbook (Jupyter)
 
 This repository contains Jupyter notebooks used to test and compare LLM integrations across multiple providers and models.
-Additionaly used to reproduce a [bug in Dimagi Open Chat Studio (OCS)](https://github.com/dimagi/open-chat-studio/issues/2962) with Perplexity.
+Additionally used to reproduce a [bug in Dimagi Open Chat Studio (OCS)](https://github.com/dimagi/open-chat-studio/issues/2962) with Perplexity.
 
 ## Goals & Learning
 
@@ -23,7 +23,7 @@ Additionaly used to reproduce a [bug in Dimagi Open Chat Studio (OCS)](https://g
 
 ## Prerequisites
 
-- Python 3.13+ (tested on Linux).
+- Python 3.12+ (tested on Linux).
 - VS Code with Jupyter extension.
 - API keys for providers you want to test.
 
@@ -128,7 +128,7 @@ What it covers:
 - `ChatPerplexity` usage.
 - Simple chain composition and structured output extraction with Pydantic.
 
-### 5) Prerplexity-ocs-bug-repro.ipynb
+### 5) Prerplexity-OCS-bug-repro.ipynb
 - Intentional endpoint mismatch examples showing 404/400 behaviors.
 
 ## Perplexity API Notes
