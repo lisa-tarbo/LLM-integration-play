@@ -10,3 +10,4 @@ langchain-google-genai
 langchain-perplexity
 pydantic
 ipykernel
+anthropic

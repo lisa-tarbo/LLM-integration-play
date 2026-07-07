@@ -54,12 +54,14 @@ OPENAI_API_KEY=
 GOOGLE_API_KEY=
 PERPLEXITY_API_KEY=
 PPLX_API_KEY=
+ANTHROPIC_API_KEY=
 ```
 
-Important:
-- `Prerplexity.ipynb` uses `PERPLEXITY_API_KEY`.
-- `LangChain.ipynb` Perplexity cells expect `PPLX_API_KEY`.
-- You can set both to the same key value.
+!!! NOTE Important:
+
+	- `Prerplexity.ipynb` uses `PERPLEXITY_API_KEY`.
+	- `LangChain.ipynb` Perplexity cells expect `PPLX_API_KEY`.
+	- You can set both to the same key value.
 
 ### 4) Select kernel in VS Code
 
