@@ -1,3 +1,5 @@
+default_language_version:
+  python: python3.13
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v5.0.0
@@ -7,6 +9,12 @@ repos:
       - id: check-merge-conflict
       - id: check-json
       - id: check-added-large-files
+      - id: mixed-line-ending
+        args: [--fix=lf]
+      - id: check-yaml
+      - id: check-merge-conflict
+      - id: no-commit-to-branch
+        args: [--branch, main]
 
   - repo: https://github.com/kynan/nbstripout
     rev: 0.8.1
