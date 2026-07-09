@@ -10,7 +10,7 @@ Additionally used to reproduce a [bug in Dimagi Open Chat Studio (OCS)](https://
 - Test provider-specific endpoint/model compatibility -> to understand [OCS LLM service abstraction layer](https://developers.openchatstudio.com/developer_guides/deleting_models/)
 - Explore LangChain abstractions for reusable, provider-agnostic workflows -> Insights into how it's used in Open Chat Studio as the foundational LLM abstraction layer
 - Technical LLM terminology -> navigating LLM documentation
-- Use GitHub Copilot -> extended tests
+- Use GitHub Copilot, Claude Code etc for the AI assited development
 
 ## Repository Contents
 
@@ -18,6 +18,7 @@ Additionally used to reproduce a [bug in Dimagi Open Chat Studio (OCS)](https://
 - `Gemini.ipynb`: Google Gemini SDK and LangChain Google integration examples.
 - `Prerplexity.ipynb`: Perplexity Sonar, Search, and Agent API behavior experiments.
 - `Prerplexity-OCS-bug-repro.ipynb`: Reproduce errors to track down an OCS bug
+- `Claude.ipynb`: API behavior
 - `LangChain.ipynb`: LangChain model wrappers, prompt templates, tool usage, and structured outputs.
 - `requirements.txt`: Python dependencies used across the notebooks.
 
@@ -25,7 +26,7 @@ Additionally used to reproduce a [bug in Dimagi Open Chat Studio (OCS)](https://
 
 - Python 3.12+ (tested on Linux).
 - VS Code with Jupyter extension.
-- API keys for providers you want to test.
+- API keys for LLM providers you want to test.
 
 ## Setup
 
