@@ -19,8 +19,8 @@ What came out of it:
 |---|---|---|
 | `OpenAI.ipynb` | OpenAI Responses API and Chat Completions | API key loading (`python-dotenv`); `instructions` vs role-based input array; legacy Chat Completions reference |
 | `Gemini.ipynb` | Google Gemini SDK and LangChain Google integration | Direct `google-genai` usage (`genai.Client`); content generation & thinking config; `ChatGoogleGenerativeAI` |
-| `Prerplexity.ipynb` | Perplexity Sonar, Search, and Agent API behavior | Sonar calls via `requests`/`perplexityai`; Search API; Agent API via OpenAI-SDK-compatible base URL |
-| `Prerplexity-OCS-bug-repro.ipynb` | Reproduces the OCS bug above | Intentional endpoint mismatches showing 404/400 behavior |
+| `Perplexity.ipynb` | Perplexity Sonar, Search, and Agent API behavior | Sonar calls via `requests`/`perplexityai`; Search API; Agent API via OpenAI-SDK-compatible base URL |
+| `Perplexity-OCS-bug-repro.ipynb` | Reproduces the OCS bug above | Intentional endpoint mismatches showing 404/400 behavior |
 | `Claude.ipynb` | Anthropic API behavior | API key validation & error handling; message creation; token counting/usage; tool use via `@beta_tool` |
 | `LangChain-openai.ipynb` | LangChain wrappers over OpenAI: prompt templates, tool binding, structured output | `ChatOpenAI` invocation patterns; Responses API tool binding (web search); prompt templates (`langchain-core`); chain composition; structured output via Pydantic |
 | `LangChain-perplexity.ipynb` | LangChain wrapper over Perplexity | `ChatPerplexity` basic invocation; note on `use_responses_api` incompatibility |
@@ -52,7 +52,7 @@ PPLX_API_KEY=
 ANTHROPIC_API_KEY=
 ```
 
-`Prerplexity.ipynb` uses `PERPLEXITY_API_KEY`; `LangChain-perplexity.ipynb` expects `PPLX_API_KEY` — you can set both to the same value.
+`Perplexity.ipynb` uses `PERPLEXITY_API_KEY`; `LangChain-perplexity.ipynb` expects `PPLX_API_KEY` — you can set both to the same value.
 
 In VS Code, open a notebook and select the Python kernel from `.venv`.
 
