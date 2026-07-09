@@ -8,6 +8,11 @@ This file provides guidance to AI coding agents when working with code in this r
 A side project to test and compare LLM integrations across multiple providers and models using Jupyter Notebooks, python 3.12+
 The engineer of this repo is using it to learn about LLM provider API style differences, LangChain and exploring the features of each LLM. Features include: RAG, Indexing, vector stores, embedding models, document loaders, LLM function calling, LLM parameters
 
+## Style
+
+- Top comments in a Jupyter Notebook should not be in the code, but in the markdown
+- Functional inline comments stay in the code block
+
 ## Agent skills
 
 ### Issue tracker
