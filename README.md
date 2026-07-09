@@ -19,10 +19,11 @@ What came out of it:
 |---|---|---|
 | `OpenAI.ipynb` | OpenAI Responses API and Chat Completions | API key loading (`python-dotenv`); `instructions` vs role-based input array; legacy Chat Completions reference |
 | `Gemini.ipynb` | Google Gemini SDK and LangChain Google integration | Direct `google-genai` usage (`genai.Client`); content generation & thinking config; `ChatGoogleGenerativeAI` |
-| `Prerplexity.ipynb` | Perplexity Sonar, Search, and Agent API behavior | Sonar calls via `requests`/`perplexityai`; Search API; Agent API via OpenAI-SDK-compatible base URL |
-| `Prerplexity-OCS-bug-repro.ipynb` | Reproduces the OCS bug above | Intentional endpoint mismatches showing 404/400 behavior |
+| `Perplexity.ipynb` | Perplexity Sonar, Search, and Agent API behavior | Sonar calls via `requests`/`perplexityai`; Search API; Agent API via OpenAI-SDK-compatible base URL |
+| `Perplexity-OCS-bug-repro.ipynb` | Reproduces the OCS bug above | Intentional endpoint mismatches showing 404/400 behavior |
 | `Claude.ipynb` | Anthropic API behavior | API key validation & error handling; message creation; token counting/usage; tool use via `@beta_tool` |
-| `LangChain.ipynb` | LangChain model wrappers, prompt templates, tool usage, structured outputs | `ChatOpenAI` invocation patterns; Responses API tool binding; prompt templates (`langchain-core`); `ChatPerplexity`; chain composition + structured output via Pydantic |
+| `LangChain-openai.ipynb` | LangChain wrappers over OpenAI: prompt templates, tool binding, structured output | `ChatOpenAI` invocation patterns; Responses API tool binding (web search); prompt templates (`langchain-core`); chain composition; structured output via Pydantic |
+| `LangChain-perplexity.ipynb` | LangChain wrapper over Perplexity | `ChatPerplexity` basic invocation; note on `use_responses_api` incompatibility |
 
 `requirements.txt` holds the Python dependencies shared across all notebooks.
 
@@ -51,7 +52,7 @@ PPLX_API_KEY=
 ANTHROPIC_API_KEY=
 ```
 
-`Prerplexity.ipynb` uses `PERPLEXITY_API_KEY`; the Perplexity cells in `LangChain.ipynb` expect `PPLX_API_KEY` — you can set both to the same value.
+`Perplexity.ipynb` uses `PERPLEXITY_API_KEY`; `LangChain-perplexity.ipynb` expects `PPLX_API_KEY` — you can set both to the same value.
 
 In VS Code, open a notebook and select the Python kernel from `.venv`.
 
@@ -68,7 +69,9 @@ In VS Code, open a notebook and select the Python kernel from `.venv`.
 	- Verify key validity and account credits.
 - `404 Not Found` (Perplexity):
 	- Check endpoint matches the API style (Sonar chat completions vs Agent API).
+- Run by Line and Debugging features for Python notebooks requires ipykernel v6 or greater to be installed in the notebook's kernel
+	- `pip install -U ipykernel`
 
 ## References
 
-See `AGENTS.md`
+See `AGENTS.md` for links to LLM API documentation
