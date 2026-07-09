@@ -8,7 +8,7 @@ Set out to learn:
 - SDK setup and authentication across OpenAI, Gemini, Perplexity, and Anthropic
 - API style differences (Responses API vs Chat Completions) and provider-specific endpoint/model compatibility
 - LangChain abstractions for provider-agnostic workflows
-- AI-assisted development workflow (GitHub Copilot, Claude Code)
+- AI-assisted development workflow including AGENTS.md and SKILLS.md (with GitHub Copilot, Claude Code)
 
 What came out of it:
 - Diagnosed a [bug in Dimagi Open Chat Studio (OCS)](https://github.com/dimagi/open-chat-studio/issues/2962): Perplexity's Sonar models use chat-completions style, but its Agent API uses an OpenAI-compatible `/v1` base URL. OCS's LLM abstraction layer didn't account for that split. The investigation also clarified how [OCS's LLM service abstraction layer](https://github.com/dimagi/open-chat-studio/blob/main/apps/service_providers/llm_service/README.md) is built.
@@ -17,7 +17,7 @@ What came out of it:
 
 | Notebook | Purpose | Key techniques |
 |---|---|---|
-| `Open AI.ipynb` | OpenAI Responses API and Chat Completions | API key loading (`python-dotenv`); `instructions` vs role-based input array; legacy Chat Completions reference |
+| `OpenAI.ipynb` | OpenAI Responses API and Chat Completions | API key loading (`python-dotenv`); `instructions` vs role-based input array; legacy Chat Completions reference |
 | `Gemini.ipynb` | Google Gemini SDK and LangChain Google integration | Direct `google-genai` usage (`genai.Client`); content generation & thinking config; `ChatGoogleGenerativeAI` |
 | `Prerplexity.ipynb` | Perplexity Sonar, Search, and Agent API behavior | Sonar calls via `requests`/`perplexityai`; Search API; Agent API via OpenAI-SDK-compatible base URL |
 | `Prerplexity-OCS-bug-repro.ipynb` | Reproduces the OCS bug above | Intentional endpoint mismatches showing 404/400 behavior |
@@ -32,7 +32,7 @@ What came out of it:
 - VS Code with Jupyter extension.
 - API keys for LLM providers you want to test.
 
-## Setup
+## Environment Setup
 
 ```bash
 python -m venv .venv
@@ -59,12 +59,6 @@ In VS Code, open a notebook and select the Python kernel from `.venv`.
 
 **Dependency maintenance:** use the `audit-dependencies` skill ([.agents/skills/audit-dependencies/SKILL.md](.agents/skills/audit-dependencies/SKILL.md)) to check for outdated/vulnerable packages in `requirements.txt` and apply safe bumps.
 
-## Perplexity API Notes
-
-- Sonar API (chat completions style): `https://api.perplexity.ai/chat/completions`
-- Agent API (OpenAI SDK compatible, responses style): `https://api.perplexity.ai/v1`
-- Reference: https://docs.perplexity.ai/docs/resources/faq#to-what-extent-is-the-api-openai-compatible
-
 ## Troubleshooting
 
 - `ValueError ... API_KEY environment variable not set`:
@@ -77,10 +71,4 @@ In VS Code, open a notebook and select the Python kernel from `.venv`.
 
 ## References
 
-- OpenAI API docs: https://developers.openai.com/api/docs
-- Google Gemini API docs: https://ai.google.dev/gemini-api/docs/libraries
-- LangChain core docs: https://reference.langchain.com/python/langchain-core
-- LangChain integrations:
-	- OpenAI: https://docs.langchain.com/oss/python/integrations/chat/openai
-	- Google: https://docs.langchain.com/oss/python/integrations/chat/google_generative_ai
-	- Perplexity: https://docs.langchain.com/oss/python/integrations/chat/perplexity
+See `AGENTS.md`
