@@ -1,88 +1,60 @@
 ---
 name: audit-dependencies
-description: Run a full dependency audit for a project — covers Python (pip-tools) and jupyter notebooks if present. Produces report, applies safe bumps, emits Jira-ready ticket list for risky/EoL items. Use when running quarterly maintenance or on demand.
+description: Run a dependency audit for this project's plain requirements.txt (Python, no pip-tools, no JS). Produces report, applies safe bumps, emits Jira-ready ticket list for risky items. Use on demand or for periodic maintenance.
 ---
 
 # Audit Dependencies
 
 ## Overview
 
-End-to-end audit of a project's direct dependencies against PyPI, npm, and `endoflife.date`. Produces `docs/dependency-audit-YYYY-MM-DD.md`, applies category A+B bumps to the lockfiles, and emits a ticket list for category C+D items.
+Audit of this project's direct dependencies, pinned in `requirements.txt`, against PyPI and known-vulnerability data. Produces `docs/dependency-audit-YYYY-MM-DD.md`, applies safe bumps directly to `requirements.txt`, and emits a ticket list for risky ones.
 
-Covers Python — pip-tools (`*.in` → `*.txt` workflow). Detect which Python toolchain the project uses and run that one; do not mix the two. If a project only has one ecosystem, skip the steps for the other.
+This project has a single ecosystem: Python via a flat `requirements.txt` (no `.in`/pip-tools compile step, no JS/npm). Skip any tooling not present — there is no lockfile-compile workflow here.
 
 ## Step 0: Discover project structure
 
-Before starting, orient yourself:
-
-1. **Python:** First determine the toolchain.
-   - **pip-tools:** Otherwise find `.in` files: `find . -name "*.in" -path "*/requirements*" | grep -v node_modules`, and their corresponding lockfiles (`*.txt`).
-2. **Major framework:** Read the Python lockfile to determine the current Django (or other framework) version — this sets the "framework floor" for Step 6.
-3. Active the virtual environment for the project (see README.md for instructions). If the project has a `requirements.txt` file, install it in the venv.
+1. Confirm the venv (`.venv`) is active; if not, activate it per README.md.
+2. Install current pins: `pip install -r requirements.txt`.
+3. Snapshot direct deps from `requirements.txt` — this is both the direct-dep list and the pin file (no separate lockfile).
 
 ## Steps
 
-### Python
+1. **Check installed vs. latest**: `pip list --outdated` for the installed venv, cross-referenced against the names in `requirements.txt` (ignore transitive-only packages that aren't direct deps).
 
-1. **Snapshot current pins** from the lockfile(s) discovered in Step 0 (`*.txt` for pip-tools).
+2. **Check for known vulnerabilities**: `pip-audit` against the active venv. This is the sole vulnerability source — no separate PyPI/OSV/endoflife.date queries needed for a project this size. Flag any direct dep (one listed in `requirements.txt`) that appears in the results.
 
-2. **Compute available upgrades:**
-   - **pip-tools:** `pip-compile --upgrade --dry-run` on each `.in` file.
+3. **Classify each direct dep** into one of two buckets (see Classification below):
+   - **Bump now** — patch/minor bump, or a major bump with no breaking API surface change for this project's usage (spot-check with `grep`/notebook read).
+   - **Needs a look** — major version bump where the API surface likely changed, or a transitive conflict shows up (e.g. another installed package pins an incompatible range).
 
-3. **For each direct dep** (from the `.in` files), fetch latest version from PyPI:
-   ```bash
-   python -c "import json,urllib.request; print(json.load(urllib.request.urlopen('https://pypi.org/pypi/<pkg>/json'))['info']['version'])"
-   ```
+## Report and tickets
 
-4. **EoL check** for framework-grade components via `https://endoflife.date/api/<product>.json`. At minimum check: `python`, `django` (if used), `postgres` (if used). Flag anything currently in use that is past EoL or within 6 months of EoL.
+4. **Write report** to `docs/dependency-audit-<today>.md` with:
+   - **Process section:** tools used (`pip list --outdated`, `pip-audit`), source file audited (`requirements.txt`).
+   - Summary (dep counts per bucket)
+   - Per-package table: current version, latest version, bucket, CVE/advisory IDs if any, action
+   - "Bumps applied" list
+   - "Tickets to file" list (needs-a-look items)
 
-5. **Classify each Python dep** using the A/B/C/D scheme (see Classification below).
+5. **Apply "bump now" changes** directly to `requirements.txt` (edit the `==` pin), then `pip install -r requirements.txt`.
 
-6. **Check framework floor.** For each B/A candidate, verify whether the target version requires a newer version of the major framework (Django, etc.) than currently running. If yes and the framework upgrade is itself deferred to a ticket, demote the package to C and link it to that ticket.
+   After applying, smoke-test by importing each bumped package in the venv (this project has no test suite — it's notebooks, not a package with pytest coverage). If an import fails or errors obviously, move that package to "needs a look" and revert its pin.
 
-### Report and tickets
+6. **Emit ticket list** for "needs a look" items to `docs/dependency-audit-<today>-tickets.md` using Jira-ready format (title, current→target, risk, references, and whether it's blocked by a transitive conflict).
 
-11. **Write report** to `docs/dependency-audit-<today>.md` with:
-    - **Process section:** classification criteria (A/B/C/D definitions), tools used (pip-compile or uv lock — whichever the project uses, PyPI API, npm audit, npm outdated, endoflife.date, git grep, pip-audit), and source files audited.
-    - Summary (dep counts per category, split by ecosystem if both present)
-    - EoL findings table
-    - Per-package table (Python and JS sections if both present): current version, latest version, category, action, changelog link
-    - "Bumps to apply" list (A + B)
-    - "Tickets to file" list (C + D)
-
-12. **Apply Python A+B bumps**, one package at a time using the project's toolchain:
-    - **pip-tools:** `pip-compile --upgrade-package <pkg>`.
-
-    After each bump, run the test suite and `pre-commit run -a`. If anything breaks, demote to C and revert.
-
-    Commit structure:
-    - One bulk commit for all A-class bumps
-    - One bulk commit for all B-class bumps that required no code changes
-    - One commit per B-class bump that required minor code changes (so it can be reverted in isolation)
-    - JS bumps in their own commit(s), separate from Python bumps
-
-13. **Emit ticket list** for C+D items to `docs/dependency-audit-<today>-tickets.md` using Jira-ready format (title, current→target, EoL date, risk, references). Roll framework-floor-blocked packages into the framework upgrade ticket.
-
-14. **Commit the applied bumps** following the structure in step 12. Do not commit the audit report or ticket list — leave that to the operator. Do not push or open a PR.
+7. **Commit the applied bumps** in a single commit covering the `requirements.txt` change. Do not commit the audit report or ticket list — leave those for the operator. Do not push or open a PR.
 
 ### Classification
 
-Used for both Python and JS deps:
-
-- **A — Patch/minor:** non-breaking version bump.
-- **B — Low-risk major:** major bump where the changelog has no breaking changes affecting this project's import/usage surface (verify with `git grep` for Python; check import/usage patterns for JS).
-- **C — Risky major:** breaking changes affect the code.
-- **D — EoL / security:** upstream support ended, within 6 months of EoL, or active CVE.
+- **Bump now:** patch/minor, or a major bump verified not to touch this project's usage.
+- **Needs a look:** major bump with likely breaking changes, active CVE with no compatible fix short of a breaking upgrade, or a transitive dependency conflict (e.g. `pip install` reports an incompatible range).
 
 ## When to invoke
 
-- Quarterly maintenance (see `docs/dependency-maintenance.md` if it exists in this project).
-- After a Dependabot security alert if a broader review is wanted.
-- Before planning a major framework upgrade.
+- On demand, or periodically as maintenance.
+- After noticing a security advisory for one of the direct deps.
 
 ## References
 
-- pip-tools docs: https://pip-tools.readthedocs.io
-- endoflife.date API: https://endoflife.date/api/<product>.json
-- OSV vulnerability DB (used by pip-audit): https://osv.dev
-- npm audit docs: https://docs.npmjs.com/cli/commands/npm-audit
+- PyPI: https://pypi.org
+- OSV vulnerability DB (used by `pip-audit`): https://osv.dev
