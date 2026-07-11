@@ -56,9 +56,14 @@ ANTHROPIC_API_KEY=
 
 In VS Code, open a notebook and select the Python kernel from `.venv`.
 
+## AI assisted development and CI
+
 **Optional — pre-commit hooks:** `pip install pre-commit detect-secrets && pre-commit install` sets up notebook output stripping, cell lint/format checks, and secret detection on commit (config in `.pre-commit-config.yaml`).
 
 **Dependency maintenance:** use the `audit-dependencies` skill ([.agents/skills/audit-dependencies/SKILL.md](.agents/skills/audit-dependencies/SKILL.md)) to check for outdated/vulnerable packages in `requirements.txt` and apply safe bumps.
+
+**Code Review with Claude** This project has a GitHub Actions workflow (`claude-code-review.yml`) that uses Claude Code for reviwing. Mention `@claude` in a PR comment for a code review
+
 
 ## Troubleshooting
 
