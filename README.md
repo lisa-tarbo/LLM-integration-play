@@ -11,7 +11,9 @@ Set out to learn:
 - AI-assisted development workflow including AGENTS.md and SKILLS.md (with GitHub Copilot, Claude Code)
 
 What came out of it:
-- Diagnosed a [bug in Dimagi Open Chat Studio (OCS)](https://github.com/dimagi/open-chat-studio/issues/2962): Perplexity's Sonar models use chat-completions style, but its Agent API uses an OpenAI-compatible `/v1` base URL. OCS's LLM abstraction layer didn't account for that split. The investigation also clarified how [OCS's LLM service abstraction layer](https://github.com/dimagi/open-chat-studio/blob/main/apps/service_providers/llm_service/README.md) is built.
+
+1. Diagnosed a [bug in Dimagi Open Chat Studio (OCS)](https://github.com/dimagi/open-chat-studio/issues/2962): Perplexity's Sonar models use chat-completions style, but its Agent API uses an OpenAI-compatible `/v1` base URL. OCS's LLM abstraction layer didn't account for that split. The investigation also clarified how [OCS's LLM service abstraction layer](https://github.com/dimagi/open-chat-studio/blob/main/apps/service_providers/llm_service/README.md) is built.
+2. OpenAI's Responses API file_search tool successfully searches across 2 vector stores in a single call but hard-caps at 2 — a 3rd vector_store_id throws a 400 "maximum of 2 vector stores allowed" error, confirming the Dimagi OCS Remote Index limitation.
 
 ## Notebooks
 
