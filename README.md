@@ -60,12 +60,21 @@ In VS Code, open a notebook and select the Python kernel from `.venv`.
 
 ## AI assisted development and CI
 
-**Optional — pre-commit hooks:** `pip install pre-commit detect-secrets && pre-commit install` sets up notebook output stripping, cell lint/format checks, and secret detection on commit (config in `.pre-commit-config.yaml`).
+### Optional — pre-commit hooks:
 
-**Dependency maintenance:** use the `audit-dependencies` skill ([.agents/skills/audit-dependencies/SKILL.md](.agents/skills/audit-dependencies/SKILL.md)) to check for outdated/vulnerable packages in `requirements.txt` and apply safe bumps.
+`pip install pre-commit detect-secrets && pre-commit install` sets up notebook output stripping, cell lint/format checks, and secret detection on commit (config in `.pre-commit-config.yaml`).
 
-**Code Review with Claude** This project has a GitHub Actions workflow (`claude-code-review.yml`) that uses Claude Code for reviwing. Mention `@claude` in a PR comment for a code review
+### Dependency maintenance:
 
+Ask Claude to use the `audit-dependencies` skill ([.agents/skills/audit-dependencies/SKILL.md](.agents/skills/audit-dependencies/SKILL.md)) to check for outdated/vulnerable packages in `requirements.txt` and apply safe bumps. Claude will create a document on the audit and a commit for the bumped requirements.txt
+
+### Optional - Code Review with Claude
+
+This project has a GitHub Actions workflow (`claude-code-review.yml`) that uses Claude Code for reviwing. Mention `@claude` in a PR comment for a code review
+
+### Optional - developer utility SKILLS
+
+**git-rebase**: Based on dimagi skill and updated to be useful for this repo
 
 ## Troubleshooting
 
