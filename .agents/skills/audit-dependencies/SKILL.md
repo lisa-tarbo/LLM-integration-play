@@ -40,7 +40,7 @@ This project has a single ecosystem: Python via a flat `requirements.txt` (no `.
 
    After applying, smoke-test by importing each bumped package in the venv (this project has no test suite — it's notebooks, not a package with pytest coverage). If an import fails or errors obviously, move that package to "needs a look" and revert its pin.
 
-6. **Emit ticket list** for "needs a look" items to `docs/dependency-audit-<today>-tickets.md` using Jira-ready format (title, current→target, risk, references, and whether it's blocked by a transitive conflict).
+6. **Emit ticket list** for "needs a look" items to `docs/dependency-audit-<today>-tickets.md` using Jira-ready format (title, current→target, risk, references, and whether it's blocked by a transitive conflict). Skip creating this file entirely if the "needs a look" bucket is empty — don't emit an empty tickets file.
 
 7. **Commit the applied bumps** in a single commit covering the `requirements.txt` change. Do not commit the audit report or ticket list — leave those for the operator. Do not push or open a PR.
 
