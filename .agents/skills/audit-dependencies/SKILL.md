@@ -21,7 +21,7 @@ This project has a single ecosystem: Python via a flat `requirements.txt` (no `.
 
 1. **Check installed vs. latest**: `pip list --outdated` for the installed venv, cross-referenced against the names in `requirements.txt` (ignore transitive-only packages that aren't direct deps).
 
-2. **Check for known vulnerabilities**: `pip-audit` against the active venv. This is the sole vulnerability source — no separate PyPI/OSV/endoflife.date queries needed for a project this size. Flag any direct dep (one listed in `requirements.txt`) that appears in the results.
+2. **Check for known vulnerabilities**: run `pip-audit` with no arguments, against the active venv — do not use `pip-audit -r requirements.txt`; that flag makes it build an isolated resolver venv via `ensurepip`, which fails in environments without `python3-venv` installed. This is the sole vulnerability source — no separate PyPI/OSV/endoflife.date queries needed for a project this size. Flag any direct dep (one listed in `requirements.txt`) that appears in the results.
 
 3. **Classify each direct dep** into one of two buckets (see Classification below):
    - **Bump now** — patch/minor bump, or a major bump with no breaking API surface change for this project's usage (spot-check with `grep`/notebook read).
