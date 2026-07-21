@@ -21,7 +21,7 @@ This project has a single ecosystem: Python via a flat `requirements.txt` (no `.
 
 1. **Check installed vs. latest**: `pip list --outdated` for the installed venv, cross-referenced against the names in `requirements.txt` (ignore transitive-only packages that aren't direct deps).
 
-2. **Check for known vulnerabilities**: `pip-audit` against the active venv. This is the sole vulnerability source — no separate PyPI/OSV/endoflife.date queries needed for a project this size. Flag any direct dep (one listed in `requirements.txt`) that appears in the results.
+2. **Check for known vulnerabilities**: run `pip-audit` with no arguments, against the active venv — do not use `pip-audit -r requirements.txt`; that flag makes it build an isolated resolver venv via `ensurepip`, which fails in environments without `python3-venv` installed. This is the sole vulnerability source — no separate PyPI/OSV/endoflife.date queries needed for a project this size. Flag any direct dep (one listed in `requirements.txt`) that appears in the results.
 
 3. **Classify each direct dep** into one of two buckets (see Classification below):
    - **Bump now** — patch/minor bump, or a major bump with no breaking API surface change for this project's usage (spot-check with `grep`/notebook read).
@@ -40,7 +40,7 @@ This project has a single ecosystem: Python via a flat `requirements.txt` (no `.
 
    After applying, smoke-test by importing each bumped package in the venv (this project has no test suite — it's notebooks, not a package with pytest coverage). If an import fails or errors obviously, move that package to "needs a look" and revert its pin.
 
-6. **Emit ticket list** for "needs a look" items to `docs/dependency-audit-<today>-tickets.md` using Jira-ready format (title, current→target, risk, references, and whether it's blocked by a transitive conflict).
+6. **Emit ticket list** for "needs a look" items to `docs/dependency-audit-<today>-tickets.md` using Jira-ready format (title, current→target, risk, references, and whether it's blocked by a transitive conflict). Skip creating this file entirely if the "needs a look" bucket is empty — don't emit an empty tickets file.
 
 7. **Commit the applied bumps** in a single commit covering the `requirements.txt` change. Do not commit the audit report or ticket list — leave those for the operator. Do not push or open a PR.
 
