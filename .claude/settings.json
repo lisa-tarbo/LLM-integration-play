@@ -15,17 +15,24 @@
       "Bash(gh --version)"
     ],
     "deny": [
-      "Read(./.env)",
-      "Read(./.env.*)",
-      "Bash(git push *)",
       "mcp__*",
+      "Bash(git push *)",
       "Bash(curl *)",
       "Bash(git reset --hard *)",
       "Bash(git clean *)",
       "Bash(git checkout -- *)",
       "Bash(git branch -D *)",
       "Bash(git push --force*)",
-      "Bash(rm -rf *)"
+      "Bash(rm -rf *)",
+      "Read(./.env)",
+      "Read(./.env.*)",
+      "Bash(cat .env*)",
+      "Bash(cat *.env)",
+      "Bash(head .env*)",
+      "Bash(tail .env*)",
+      "Bash(less .env*)",
+      "Bash(more .env*)",
+      "Bash(grep * .env*)"
     ]
   },
   "sandbox": {
