@@ -1,0 +1,28 @@
+{
+  "model": "claude-sonnet-5",
+  "modelSettings": {
+    "claude-sonnet-5": { "effortLevel": "high" }
+  },
+  "permissions": {
+    "allow": [
+      "Bash(git fetch *)",
+      "Bash(git ls-tree *)",
+      "Bash(jupyter nbconvert *)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Skill(create-pr)",
+      "Skill(create-pr:*)",
+      "Bash(gh --version)"
+    ],
+    "deny": [
+      "Read(./.env)",
+      "Read(./.env.*)"
+    ]
+  },
+  "sandbox": {
+    "enabled": true,
+    "autoAllowBashIfSandboxed": true,
+    "allowUnsandboxedCommands": false
+  },
+  "cleanupPeriodDays": 20
+}
