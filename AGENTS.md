@@ -8,6 +8,7 @@ The engineer of this repo is using it to learn about LLM provider API style diff
 ## Repo layout
 
 - `Notebooks/`: all notebooks, one per provider or topic (see the table in `README.md`)
+- `docs/`: dependency audit files and data files for testing
 - `requirements.txt`: Python dependencies shared across all notebooks, so new notebooks do not add their own
 - `.env`: API keys, in the repository root, never committed
 
