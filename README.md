@@ -13,19 +13,20 @@ Set out to learn:
 What came out of it:
 
 1. Diagnosed a [bug in Dimagi Open Chat Studio (OCS)](https://github.com/dimagi/open-chat-studio/issues/2962): Perplexity's Sonar models use chat-completions style, but its Agent API uses an OpenAI-compatible `/v1` base URL. OCS's LLM abstraction layer didn't account for that split. The investigation also clarified how [OCS's LLM service abstraction layer](https://github.com/dimagi/open-chat-studio/blob/main/apps/service_providers/llm_service/README.md) is built.
-2. OpenAI's Responses API file_search tool successfully searches across 2 vector stores in a single call but hard-caps at 2 — a 3rd vector_store_id throws a 400 "maximum of 2 vector stores allowed" error, confirming the Dimagi OCS Remote Index limitation.
+2. Researched: OpenAI's Responses API file_search tool successfully searches across 2 vector stores in a single call but hard-caps at 2 — a 3rd vector_store_id throws a 400 "maximum of 2 vector stores allowed" error, confirming the undocumented [Dimagi OCS Remote Index limitation](https://github.com/dimagi/open-chat-studio/pull/3815).
 
 ## Notebooks
 
 | Notebook | Purpose | Key techniques |
 |---|---|---|
-| `OpenAI.ipynb` | OpenAI Responses API and Chat Completions | API key loading (`python-dotenv`); `instructions` vs role-based input array; legacy Chat Completions reference |
-| `Gemini.ipynb` | Google Gemini SDK and LangChain Google integration | Direct `google-genai` usage (`genai.Client`); content generation & thinking config; `ChatGoogleGenerativeAI` |
-| `Perplexity.ipynb` | Perplexity Sonar, Search, and Agent API behavior | Sonar calls via `requests`/`perplexityai`; Search API; Agent API via OpenAI-SDK-compatible base URL |
-| `Perplexity-OCS-bug-repro.ipynb` | Reproduces the OCS bug above | Intentional endpoint mismatches showing 404/400 behavior |
-| `Claude.ipynb` | Anthropic API behavior | API key validation & error handling; message creation; token counting/usage; tool use via `@beta_tool` |
-| `LangChain-openai.ipynb` | LangChain wrappers over OpenAI: prompt templates, tool binding, structured output | `ChatOpenAI` invocation patterns; Responses API tool binding (web search); prompt templates (`langchain-core`); chain composition; structured output via Pydantic |
-| `LangChain-perplexity.ipynb` | LangChain wrapper over Perplexity | `ChatPerplexity` basic invocation; note on `use_responses_api` incompatibility |
+| [`OpenAI.ipynb`](Notebooks/OpenAI.ipynb) | OpenAI Responses API and Chat Completions | API key loading (`python-dotenv`); `instructions` vs role-based input array; legacy Chat Completions reference |
+| [`OpenAI-remote-vector-store.ipynb`](Notebooks/OpenAI-remote-vector-store.ipynb) | Responses API `file_search` tool over remote vector stores | Multi-vector-store search calls; reproduces the 2-vector-store hard cap (400 error) behind finding #2 above |
+| [`Gemini.ipynb`](Notebooks/Gemini.ipynb) | Google Gemini SDK and LangChain Google integration | Direct `google-genai` usage (`genai.Client`); content generation & thinking config; `ChatGoogleGenerativeAI` |
+| [`Perplexity.ipynb`](Notebooks/Perplexity.ipynb) | Perplexity Sonar, Search, and Agent API behavior | Sonar calls via `requests`/`perplexityai`; Search API; Agent API via OpenAI-SDK-compatible base URL |
+| [`Perplexity-OCS-bug-repro.ipynb`](Notebooks/Perplexity-OCS-bug-repro.ipynb) | Reproduces the OCS bug above | Intentional endpoint mismatches showing 404/400 behavior |
+| [`Claude.ipynb`](Notebooks/Claude.ipynb) | Anthropic API behavior | API key validation & error handling; message creation; token counting/usage; tool use via `@beta_tool` |
+| [`LangChain-openai.ipynb`](Notebooks/LangChain-openai.ipynb) | LangChain wrappers over OpenAI: prompt templates, tool binding, structured output | `ChatOpenAI` invocation patterns; Responses API tool binding (web search); prompt templates (`langchain-core`); chain composition; structured output via Pydantic |
+| [`LangChain-perplexity.ipynb`](Notebooks/LangChain-perplexity.ipynb) | LangChain wrapper over Perplexity | `ChatPerplexity` basic invocation; note on `use_responses_api` incompatibility |
 
 `requirements.txt` holds the Python dependencies shared across all notebooks.
 
