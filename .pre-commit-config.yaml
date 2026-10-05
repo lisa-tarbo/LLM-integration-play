@@ -16,18 +16,21 @@ repos:
       - id: no-commit-to-branch
         args: [--branch, main]
 
+  # Strip output from Jupyter notebooks (reduce noise in diffs, reduce repo size)
   - repo: https://github.com/kynan/nbstripout
     rev: 0.8.1
     hooks:
       - id: nbstripout
         files: \.ipynb$
 
+  # Python linters and formatters for Jupyter notebooks
+  # The hooks are nbqa-ruff (lint) and nbqa-black (format).
+  # Ruff rules and notebook-specific ignores (E402, F401, F811) live in ruff.toml
   - repo: https://github.com/nbQA-dev/nbQA
     rev: 1.9.1
     hooks:
       - id: nbqa-ruff
         files: \.ipynb$
-        args: ["--extend-ignore=E402,F401,F811"]
       - id: nbqa-black
         files: \.ipynb$
 
