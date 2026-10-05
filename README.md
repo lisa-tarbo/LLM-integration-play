@@ -36,59 +36,19 @@ What came out of it:
 - VS Code with Jupyter extension.
 - API keys for LLM providers you want to test.
 
-## Environment Setup
+## Setup and environment
 
-```bash
-python -m venv .venv
-source .venv/bin/activate
-pip install -U pip
-pip install -r requirements.txt
-```
+See [AGENTS.md](AGENTS.md) for:
 
-Create a `.env` file in the repository root:
-
-```dotenv
-OPENAI_API_KEY=
-GOOGLE_API_KEY=
-PERPLEXITY_API_KEY=
-PPLX_API_KEY=
-ANTHROPIC_API_KEY=
-```
-
-`Perplexity.ipynb` uses `PERPLEXITY_API_KEY`; `LangChain-perplexity.ipynb` expects `PPLX_API_KEY` — you can set both to the same value.
-
-In VS Code, open a notebook and select the Python kernel from `.venv`.
+- [Setup](AGENTS.md#setup): virtual environment and `pip install -r requirements.txt`
+- [Environment variables](AGENTS.md#environment-variables): the `.env` file and the API key names each notebook expects
+- [Pre-commit hooks](AGENTS.md#pre-commit-hooks) (optional)
+- [Troubleshooting](AGENTS.md#troubleshooting)
 
 ## AI assisted development and CI
 
-### Optional — pre-commit hooks:
-
-`pip install pre-commit detect-secrets && pre-commit install` sets up notebook output stripping, cell lint/format checks, and secret detection on commit (config in `.pre-commit-config.yaml`).
-
-### Dependency maintenance:
-
-Ask Claude to use the `audit-dependencies` skill ([.agents/skills/audit-dependencies/SKILL.md](.agents/skills/audit-dependencies/SKILL.md)) to check for outdated/vulnerable packages in `requirements.txt` and apply safe bumps. Claude will create a document on the audit and a commit for the bumped requirements.txt
-
-### Optional - Code Review with Claude
-
-This project has a GitHub Actions workflow (`claude-code-review.yml`) that uses Claude Code for reviwing. Mention `@claude` in a PR comment for a code review
-
-### Optional - developer utility SKILLS
-
-**git-rebase**: Based on dimagi skill and updated to be useful for this repo
-
-## Troubleshooting
-
-- `ValueError ... API_KEY environment variable not set`:
-	- Ensure `.env` exists and keys are populated.
-	- Confirm the notebook kernel uses the same `.venv` where `python-dotenv` is installed.
-- `401 Unauthorized` :
-	- Verify key validity and account credits.
-- `404 Not Found` (Perplexity):
-	- Check endpoint matches the API style (Sonar chat completions vs Agent API).
-- Run by Line and Debugging features for Python notebooks requires ipykernel v6 or greater to be installed in the notebook's kernel
-	- `pip install -U ipykernel`
+Skills (`audit-dependencies`, `git-rebase`) and the `@claude` PR review workflow are described in [AGENTS.md](AGENTS.md#agent-skills).
 
 ## References
 
-See `AGENTS.md` for links to LLM API documentation
+See [AGENTS.md](AGENTS.md#references) for links to LLM API documentation
