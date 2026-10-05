@@ -35,7 +35,8 @@
     "allowUnsandboxedCommands": false,
     "filesystem": {
       "allowWrite": ["/tmp/*"],
-      "denyRead": ["~/.aws/*", "~/.ssh/*", "~/.config/uv/*", "~/.config/azure/*", "~/.config/go/*", "~/.config/gh/*", "~/.config/git/*"],
+      "allowRead": ["~/.config/git/ignore"],
+      "denyRead":["~/.aws/*", "~/.ssh/*", "~/.config/uv/*", "~/.config/azure/*", "~/.config/go/*", "~/.config/gh/*", "~/.config/git/*"],
       "denyWrite": ["~/.aws/*", "~/.ssh/*", "~/.config/uv/*", "~/.config/azure/*", "~/.config/go/*", "~/.config/gh/*", "~/.config/git/*","/etc", "/usr/local/bin"]
 
     },
