@@ -11,6 +11,7 @@ The engineer of this repo is using it to learn about LLM provider API style diff
 - `docs/`: dependency audit files and data files for testing
 - `requirements.txt`: Python dependencies shared across all notebooks, so new notebooks do not add their own
 - `.env`: API keys, in the repository root, never committed
+- `.agents/skills/`
 
 ## Setup
 
@@ -45,9 +46,17 @@ ANTHROPIC_API_KEY=
 
 ## Pre-commit hooks
 
-`pip install pre-commit detect-secrets nbqa ruff black && pre-commit install`. On commit, hooks strip notebook outputs, check cell lint/format, and scan for secrets (config in `.pre-commit-config.yaml`). Run `pre-commit run --all-files`
+```bash
+# One-time setup
+pip install pre-commit && pre-commit install
 
-Notebook lint failures come from `nbqa-ruff`. Fix import order and typing upgrades with `nbqa ruff Notebooks --fix --extend-ignore=E402,F401,F811` (needs `nbqa` and `ruff` installed in `.venv`; the hook only checks, it does not fix). Bare trailing expressions (B018) and broad `except Exception` (BLE001) need a manual fix or a `# noqa`.
+# Check all files (what each hook does is commented in .pre-commit-config.yaml)
+pre-commit run --all-files
+
+# Auto-fix notebook lint (import order, typing upgrades); needs nbqa and ruff in .venv
+# B018 (bare trailing expression) and BLE001 (broad except) need a manual fix or a # noqa
+nbqa ruff Notebooks --fix
+```
 
 ## Troubleshooting
 
@@ -85,7 +94,7 @@ The GitHub Actions workflow `claude-code-review.yml` runs Claude Code reviews. M
 
 - **Always**
   - When writing code suggest the smallest cheapest model to use to save
-  - When writing code suggest mode parameters that are low cost. For example temperature = low, effort = low
+  - When writing code suggest model parameters that are low cost. For example temperature = low, effort = low
 
 - **Never**
   - Commit secrets, credentials, or tokens.

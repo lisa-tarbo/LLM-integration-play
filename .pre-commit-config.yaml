@@ -1,6 +1,10 @@
+# Hooks run in their own pre-commit-managed environments, so nbqa, ruff, black
+# and detect-secrets do not need to be installed in .venv.
 default_language_version:
-  python: python3.13
+  python: python3.12
 repos:
+  # File hygiene: whitespace, EOF, merge markers, JSON/YAML validity, large files,
+  # LF line endings. no-commit-to-branch blocks direct commits to main.
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v5.0.0
     hooks:
@@ -12,7 +16,6 @@ repos:
       - id: mixed-line-ending
         args: [--fix=lf]
       - id: check-yaml
-      - id: check-merge-conflict
       - id: no-commit-to-branch
         args: [--branch, main]
 
@@ -24,8 +27,9 @@ repos:
         files: \.ipynb$
 
   # Python linters and formatters for Jupyter notebooks
-  # The hooks are nbqa-ruff (lint) and nbqa-black (format).
-  # Ruff rules and notebook-specific ignores (E402, F401, F811) live in ruff.toml
+  # nbqa-ruff only checks (fix manually, see AGENTS.md); nbqa-black rewrites the
+  # notebook, so re-stage and commit again after it runs.
+  # Ruff rules (I, UP, B, BLE) and notebook ignores (E402, F401, F811) live in ruff.toml
   - repo: https://github.com/nbQA-dev/nbQA
     rev: 1.9.1
     hooks:
@@ -34,6 +38,7 @@ repos:
       - id: nbqa-black
         files: \.ipynb$
 
+  # Scan for secrets against .secrets.baseline
   - repo: https://github.com/Yelp/detect-secrets
     rev: v1.5.0
     hooks:
