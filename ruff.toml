@@ -1,0 +1,8 @@
+[lint]
+# Add to ruff's defaults (rather than replacing them) so newer ruff releases
+# can still surface new default rules, while older ones keep these as a floor.
+extend-select = ["I", "UP", "B", "BLE"]
+
+# Notebook cells are self-contained: imports appear mid-file (E402), are
+# re-imported per section (F811) and are sometimes unused (F401).
+ignore = ["E402", "F401", "F811"]
