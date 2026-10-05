@@ -45,9 +45,9 @@ ANTHROPIC_API_KEY=
 
 ## Pre-commit hooks
 
-`pip install pre-commit detect-secrets && pre-commit install`. On commit, hooks strip notebook outputs, check cell lint/format, and scan for secrets (config in `.pre-commit-config.yaml`). Run `pre-commit run --all-files`
+`pip install pre-commit detect-secrets nbqa ruff black && pre-commit install`. On commit, hooks strip notebook outputs, check cell lint/format, and scan for secrets (config in `.pre-commit-config.yaml`). Run `pre-commit run --all-files`
 
-Notebook lint failures come from `nbqa-ruff`. Fix import order and typing upgrades with `nbqa ruff Notebooks --fix`. Bare trailing expressions (B018) and broad `except Exception` (BLE001) need a manual fix or a `# noqa`.
+Notebook lint failures come from `nbqa-ruff`. Fix import order and typing upgrades with `nbqa ruff Notebooks --fix --extend-ignore=E402,F401,F811` (needs `nbqa` and `ruff` installed in `.venv`; the hook only checks, it does not fix). Bare trailing expressions (B018) and broad `except Exception` (BLE001) need a manual fix or a `# noqa`.
 
 ## Troubleshooting
 
